@@ -1,0 +1,43 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@{
+    ViewData["Title"] = "Destiny Highlights";
+}
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+@foreach (var gamer in Model.MembersList)
+{
+    <div class="jumbotron">
+        <h3>@gamer.GamerTag</h3>
+        <a href="@Model.DestinyStatsUrl">Check Out My Stats!</a>
+        <div class="row">
+            @foreach (var highlight in Model.ReturnHighlightsByGamerTag(gamer.GamerTag))
+            {
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail youtube-show bottom-buffer center-block">
+                        <a href="@highlight.Url" title="Watch this highlight">
+                            <div>
+                                <img class="img-responsive center-block" src="@highlight.ThumbnailUrl" alt="Thumbnail of highlight" />
+                            </div>
+                        </a>
+                        <div class="caption text-center">
+                            <h3>
+                                <a href="@highlight.Url" title="Watch this highlight">
+                                    @if (highlight.HasTitle)
+                                    {
+                                        @highlight.Title<br />
+                                    }
+                                </a>
+                                <span class="show-date">@highlight.HighlightDate.DateTime.ToString("MMM dd, yyyy")</span>
+                                @if (highlight.IsNew)
+                                {
+                                    <span class="label label-success label-new-show">New</span>
+                                }
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
