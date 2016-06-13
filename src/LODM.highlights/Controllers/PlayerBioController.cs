@@ -48,7 +48,7 @@ namespace LODM.highlights.Controllers
                     {
                         Title = "Division",
                         Publisher = "Ubisoft",
-                        Genre = "FPS Travesty"
+                        Genre = "3rd person Cover Shooter Travesty"
                     }
                 }
             };
