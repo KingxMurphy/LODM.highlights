@@ -77,17 +77,19 @@
             {
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail youtube-show bottom-buffer center-block">
-                        <a href="@highlight.Url" title="Watch this highlight">
+                        <button id="showVideobtn" type="button" class="btn btn-primary btn-lg" data-target="#embedHighlightModal" data-gamerTag="@gamer.GamerTag" data-embedUrl="@highlight.EmbedUrl">Launch My Damn Modal</button>
+                        <a href="#" id="videoLink" title="Watch this highlight" >@*href="@highlight.Url"*@
                             <div>
-                                <img class="img-responsive center-block" src="@highlight.ThumbnailUrl" alt="Thumbnail of highlight" />
+                                <img class="img-responsive center-block" src="@highlight.ThumbnailUrl" alt="Thumbnail of highlight"/>
                             </div>
                         </a>
                         <div class="caption text-center">
                             <h3>
-                                <a href="@highlight.Url" title="Watch this highlight">
+                                <a href="#" data-toggle="modal" title="Watch this highlight" data-target="#embedHighlightModal"
+                                   data-gamerTag="@gamer.GamerTag" data-embedUrl="@highlight.Url">
                                     @if (highlight.HasTitle)
                                     {
-                                        @highlight.Title<br />
+                                        @highlight.Title<br/>
                                     }
                                 </a>
                                 <span class="show-date">@highlight.HighlightDate.DateTime.ToString("MMM dd, yyyy")</span>
@@ -103,5 +105,43 @@
         </div>
     </div>
 }
+@*<div>
+    <partial name="_EmbedHighlightPartial" model="Model"></partial>
+</div>*@
+@section scripts{
+<div class="modal fade" tabindex="-1" role="dialog" id="embedHighlightModal" aria-labelledby="embedHighlightModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="embedHighlightModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="350" src=""></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
+    <script>
+        $('#showVideobtn').click(function () {
+            var gamerTag = $(this).data("gamertag");
+            var urlSrc = $(this).data("embedurl");
+            var modal = $(this).data('target');
+            // take from the button on data tags and stick them into the modal 
+            $(modal + ' iframe').attr('src', urlSrc);
+            $(modal).find('.modal-title').text("Gamertag: " + gamerTag);
+            $('#embedHighlightModal').modal('toggle');
+        });
+        //This is a bootstrap call. When the modal goes away, we remove the src so that the video will stop playing.
+        $('#embedHighlightModal').on('hidden.bs.modal', function() {
+            $('#embedHighlightModal iframe').removeAttr('src');
+        });
+    </script>
+
+}
 
