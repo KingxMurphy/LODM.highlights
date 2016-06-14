@@ -96,6 +96,36 @@ namespace LODM.highlights
                     name: "DestinyMappedRoute",
                     template: "destinyfoopoo",
                     defaults: new {controller = "Destiny", action = "Destiny"});
+
+                routes.MapRoute(
+                    name: "KingxMurphyBio",
+                    template:"PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "KingxMurphy" });
+
+                routes.MapRoute(
+                    name: "Take2ChanceBio",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Take2Chance" });
+
+                routes.MapRoute(
+                    name: "TheYungJacquesBio",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "TheYungJacques" });
+
+                routes.MapRoute(
+                    name: "JimmyPotatoBio",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "JimmyPotato" });
+
+                routes.MapRoute(
+                    name: "SyphinBio",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Syphin" });
+
+                routes.MapRoute(
+                    name: "Headsho7Bio",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Headsho7" });
             });
         }
     }

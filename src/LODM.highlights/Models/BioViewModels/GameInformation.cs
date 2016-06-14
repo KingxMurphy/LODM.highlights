@@ -10,5 +10,7 @@ namespace LODM.highlights.Models.BioViewModels
         public string Title { get; set; }
         public string Genre { get; set; }
         public string Publisher { get; set; }
+        public string About { get; set; }
+        public string BackgroundUrl { get; set; }
     }
 }

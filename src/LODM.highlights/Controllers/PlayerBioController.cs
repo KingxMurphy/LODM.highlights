@@ -36,19 +36,22 @@ namespace LODM.highlights.Controllers
                     {
                         Title = "Overwatch",
                         Publisher = "Blizzard",
-                        Genre = "FPS"
+                        Genre = "FPS",
+                        BackgroundUrl = "overWatchbackground.png"
                     },
                     new GameInformation
                     {
                         Title = "Destiny",
                         Publisher = "Bungie",
-                        Genre = "FPS Looter Shooter"
+                        Genre = "FPS Looter Shooter",
+                        BackgroundUrl = "destinyBackground.jpg"
                     },
                     new GameInformation
                     {
                         Title = "Division",
                         Publisher = "Ubisoft",
-                        Genre = "3rd person Cover Shooter Travesty"
+                        Genre = "3rd person Cover Shooter Travesty",
+                        BackgroundUrl = "tempBackground.jpg"
                     }
                 }
             };
