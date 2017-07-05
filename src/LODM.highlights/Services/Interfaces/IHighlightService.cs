@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace LODM.highlights.Services
+namespace LODM.highlights.Services.Interfaces
 {
     public interface IHighlightService
     {

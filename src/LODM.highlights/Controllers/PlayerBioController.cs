@@ -3,23 +3,29 @@ using System.Linq;
 using LODM.highlights.Models.BioViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using LODM.highlights.Services.Interfaces;
 
 namespace LODM.highlights.Controllers
 {
     public class PlayerBioController : Controller
     {
         private readonly AppSettings _appSettings;
+        private readonly IMember _memberService;
 
-        public PlayerBioController(IOptions<AppSettings> appSettings)
+        public PlayerBioController(IOptions<AppSettings> appSettings, IMember memberService)
         {
             _appSettings = appSettings.Value;
+            _memberService = memberService;
         }
         // GET: /PlayerBio/PlayerBio
         [HttpGet]
         public IActionResult PlayerBio(string selectedPlayerGamerTag)
         {
-            var allPlayerBios = getPlayerBio(_appSettings.Members.FirstOrDefault(x => x.GamerTag == selectedPlayerGamerTag));
-            return View(allPlayerBios);
+            var selectedPlayer = _memberService.GetAll().FirstOrDefault(x => x.GamerTag == selectedPlayerGamerTag);
+            var playerBio = getPlayerBio(selectedPlayer);
+            ViewData["SelectedMember"] = selectedPlayerGamerTag;
+
+            return View(playerBio);
         }
 
         private static BioViewModel getPlayerBio(Member player)

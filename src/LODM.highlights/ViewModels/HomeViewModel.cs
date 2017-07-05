@@ -7,7 +7,7 @@ namespace LODM.highlights.ViewModels
 {
     public class HomeViewModel
     {
-        public IList<Member> MembersList { get; set; } 
+        public IEnumerable<Member> MembersList { get; set; } 
         public List<HighlightList> HighlightsList { get; set; }
         public bool ShowPreviousShows => HighlightsList.Count > 0;
         public string MoreShowsUrl { get; set; }

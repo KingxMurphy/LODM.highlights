@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using LODM.highlights.Data;
 using LODM.highlights.Models;
 using LODM.highlights.Services;
+using LODM.highlights.Services.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace LODM.highlights
@@ -53,9 +54,10 @@ namespace LODM.highlights
             services.AddOptions();
             services.Configure<IConfigurationRoot>(Configuration);
             services.AddScoped<IHighlightService, YouTubeHighlightsService>();
+            services.AddScoped<IMember, MemberService>();
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            //services.AddTransient<IEmailSender, AuthMessageSender>();
+            //services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,32 +95,32 @@ namespace LODM.highlights
                     defaults: new {controller = "Destiny", action = "Destiny"});
 
                 routes.MapRoute(
-                    name: "KingxMurphyBio",
+                    name: "Bio_KingxMurphy",
                     template:"PlayerBio",
                     defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "KingxMurphy" });
 
                 routes.MapRoute(
-                    name: "Take2ChanceBio",
+                    name: "Bio_Take2Chance",
                     template: "PlayerBio",
                     defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Take2Chance" });
 
                 routes.MapRoute(
-                    name: "TheYungJacquesBio",
+                    name: "Bio_TheYungJacques",
                     template: "PlayerBio",
                     defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "TheYungJacques" });
 
                 routes.MapRoute(
-                    name: "JimmyPotatoBio",
+                    name: "Bio_JimmyPotato",
                     template: "PlayerBio",
                     defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "JimmyPotato" });
 
                 routes.MapRoute(
-                    name: "SyphinBio",
+                    name: "Bio_Syphin",
                     template: "PlayerBio",
                     defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Syphin" });
 
                 routes.MapRoute(
-                    name: "Headsho7Bio",
+                    name: "Bio_Headsho7",
                     template: "PlayerBio",
                     defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Headsho7" });
             });

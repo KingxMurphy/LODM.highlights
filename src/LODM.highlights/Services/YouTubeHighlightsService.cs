@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.WebEncoders;
+using LODM.highlights.Services.Interfaces;
 
 namespace LODM.highlights.Services
 {
@@ -23,21 +24,25 @@ namespace LODM.highlights.Services
         private readonly AppSettings _appSettings;
         private readonly IMemoryCache _cache;
         private readonly TelemetryClient _telemetry;
+        private readonly IMember _memberService;
+
         public YouTubeHighlightsService(
             IHostingEnvironment env,
             IOptions<AppSettings> appSettings,
             IMemoryCache memoryCache,
-            TelemetryClient telemetry)
+            TelemetryClient telemetry,
+            IMember memberService)
         {
             _env = env;
             _appSettings = appSettings.Value;
             _cache = memoryCache;
             _telemetry = telemetry;
+            _memberService = memberService;
         }
 
         public async Task<HighlightList> GetOverwatchHighlightsAsync(string gamerTag, ClaimsPrincipal user, bool disableCache)
         {
-            var gamerMember = _appSettings.Members.FirstOrDefault(x => x.GamerTag == gamerTag);
+            var gamerMember = _memberService.GetAll().FirstOrDefault(X => X.GamerTag.ToLower() == gamerTag.ToLower()); ;//_appSettings.Members.FirstOrDefault(x => x.GamerTag == gamerTag);
 
             if (string.IsNullOrEmpty(gamerMember?.YouTubeApiKey))
                 return new HighlightList()
@@ -170,6 +175,7 @@ namespace LODM.highlights.Services
 
             return $"https://www.youtube.com/playlist?list={encodedPlaylistId}";
         }
+
         private static class PlaceHolderData
         {
             private static readonly TimeSpan CdtOffset = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time").BaseUtcOffset;
