@@ -20,10 +20,14 @@ namespace LODM.highlights.TagHelpers
             output.TagName = "li"; //replaces the member-list with the <li> tag
             output.Content.Clear();
 
+            //Removing the person we clicked on from the list. 
             foreach (var member in _memberService.GetAll())
             {
                 if (!SelectedMember.Equals(member.GamerTag, StringComparison.CurrentCultureIgnoreCase))
                 {
+                    //This could be expanded so that the drop down has another property to determine WHERE we are going to go.
+                    //Granted a dynamic list could be less than desirable... for more than one programmer to deal with.
+
                     var href = $"/PlayerBio/PlayerBio?selectedPlayerGamerTag={member.GamerTag}";
 
                     var listItem = $"<a href=\"{href}\">{member.GamerTag}</a>";
