@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.WebEncoders;
+using LODM.highlights.Services.Interfaces;
 
 namespace LODM.highlights.Services
 {
@@ -23,21 +24,25 @@ namespace LODM.highlights.Services
         private readonly AppSettings _appSettings;
         private readonly IMemoryCache _cache;
         private readonly TelemetryClient _telemetry;
+        private readonly IMember _memberService;
+
         public YouTubeHighlightsService(
             IHostingEnvironment env,
             IOptions<AppSettings> appSettings,
             IMemoryCache memoryCache,
-            TelemetryClient telemetry)
+            TelemetryClient telemetry,
+            IMember memberService)
         {
             _env = env;
             _appSettings = appSettings.Value;
             _cache = memoryCache;
             _telemetry = telemetry;
+            _memberService = memberService;
         }
 
         public async Task<HighlightList> GetOverwatchHighlightsAsync(string gamerTag, ClaimsPrincipal user, bool disableCache)
         {
-            var gamerMember = _appSettings.Members.FirstOrDefault(x => x.GamerTag == gamerTag);
+            var gamerMember = _memberService.GetAll().FirstOrDefault(X => X.GamerTag.ToLower() == gamerTag.ToLower()); ;//_appSettings.Members.FirstOrDefault(x => x.GamerTag == gamerTag);
 
             if (string.IsNullOrEmpty(gamerMember?.YouTubeApiKey))
                 return new HighlightList()
@@ -155,6 +160,15 @@ namespace LODM.highlights.Services
             return $"https://www.youtube.com/watch?v={encodedId}&list={encodedPlaylistId}&index={encodedItemIndex}";
         }
 
+        private static string getEmbedVideoUrl(string id, string playlistId, long itemIndex)
+        {
+            var encodedId = UrlEncoder.Default.UrlEncode(id);
+            var encodedPlaylistId = UrlEncoder.Default.UrlEncode(playlistId);
+            var encodedItemIndex = UrlEncoder.Default.UrlEncode(itemIndex.ToString());
+
+            return $"https://www.youtube.com/embed/{encodedId}&list={encodedPlaylistId}&index={encodedItemIndex}";
+        }
+
         private static string getPlaylistUrl(string playlistId)
         {
             var encodedPlaylistId = UrlEncoder.Default.UrlEncode(playlistId);
@@ -175,7 +189,8 @@ namespace LODM.highlights.Services
                     Provider = "YouTube",
                     ProviderId = "LoYL3TYAN4E",
                     ThumbnailUrl = "http://img.youtube.com/vi/LoYL3TYAN4E/mqdefault.jpg",
-                    Url = "https://www.youtube.com/watch?v=LoYL3TYAN4E"
+                    Url = "https://www.youtube.com/watch?v=LoYL3TYAN4E",
+                    EmbedUrl = "http://www.youtube.com/embed/LoYL3TYAN4E?autoplay=1"
                 },
                 new Highlight
                 {
@@ -184,7 +199,8 @@ namespace LODM.highlights.Services
                     Provider = "YouTube",
                     ProviderId = "l9ztSKb4vT4",
                     ThumbnailUrl = "http://img.youtube.com/vi/l9ztSKb4vT4/mqdefault.jpg",
-                    Url = "https://www.youtube.com/watch?v=l9ztSKb4vT4&list=PLA5977930832F4F80&index=1"
+                    Url = "https://www.youtube.com/watch?v=l9ztSKb4vT4&list=PLA5977930832F4F80&index=1",
+                    EmbedUrl = "http://www.youtube.com/embed/l9ztSKb4vT4?autoplay=1"
                 },
                 new Highlight
                 {
@@ -193,7 +209,8 @@ namespace LODM.highlights.Services
                     Provider = "YouTube",
                     ProviderId = "Z6UfoQQqTcc",
                     ThumbnailUrl = "http://img.youtube.com/vi/Z6UfoQQqTcc/mqdefault.jpg",
-                    Url = "https://www.youtube.com/watch?v=Z6UfoQQqTcc&index=7&list=PLA5977930832F4F80"
+                    Url = "https://www.youtube.com/watch?v=Z6UfoQQqTcc&index=7&list=PLA5977930832F4F80",
+                    EmbedUrl = "http://www.youtube.com/embed/Z6UfoQQqTcc?autoplay=1"
                 },
             };
         }

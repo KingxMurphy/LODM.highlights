@@ -23,5 +23,6 @@ namespace LODM.highlights.Models
         public string Url { get; set; }
 
         public string ThumbnailUrl { get; set; }
+        public string EmbedUrl { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LODM.highlights.Models;
 using LODM.highlights.Models.ManageViewModels;
-using LODM.highlights.Services;
+using LODM.highlights.Services.Interfaces;
 
 namespace LODM.highlights.Controllers
 {

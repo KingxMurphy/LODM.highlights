@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{14788614-3EA4-4A55-A7BC-30763E230FE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2AE591A2-ADED-4284-8C07-8A7DBA9D6EFD}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LODM.highlights", "src\LODM.highlights\LODM.highlights.xproj", "{61C0870C-D8AB-49B2-964C-A821CC3DC0E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LODM.highlights", "src\LODM.highlights\LODM.highlights.csproj", "{61C0870C-D8AB-49B2-964C-A821CC3DC0E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,8 +7,8 @@ using Microsoft.Extensions.Logging;
 using LODM.highlights.Data;
 using LODM.highlights.Models;
 using LODM.highlights.Services;
+using LODM.highlights.Services.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 
 namespace LODM.highlights
 {
@@ -25,7 +25,7 @@ namespace LODM.highlights
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets();
-
+                
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
                 builder.AddApplicationInsightsSettings(developerMode: true);
             }
@@ -54,9 +54,10 @@ namespace LODM.highlights
             services.AddOptions();
             services.Configure<IConfigurationRoot>(Configuration);
             services.AddScoped<IHighlightService, YouTubeHighlightsService>();
+            services.AddScoped<IMember, MemberService>();
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            //services.AddTransient<IEmailSender, AuthMessageSender>();
+            //services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,8 +65,6 @@ namespace LODM.highlights
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
             {
@@ -77,8 +76,6 @@ namespace LODM.highlights
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
 
@@ -96,6 +93,36 @@ namespace LODM.highlights
                     name: "DestinyMappedRoute",
                     template: "destinyfoopoo",
                     defaults: new {controller = "Destiny", action = "Destiny"});
+
+                routes.MapRoute(
+                    name: "Bio_KingxMurphy",
+                    template:"PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "KingxMurphy" });
+
+                routes.MapRoute(
+                    name: "Bio_Take2Chance",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Take2Chance" });
+
+                routes.MapRoute(
+                    name: "Bio_TheYungJacques",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "TheYungJacques" });
+
+                routes.MapRoute(
+                    name: "Bio_JimmyPotato",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "JimmyPotato" });
+
+                routes.MapRoute(
+                    name: "Bio_Syphin",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Syphin" });
+
+                routes.MapRoute(
+                    name: "Bio_Headsho7",
+                    template: "PlayerBio",
+                    defaults: new { controller = "PlayerBio", action = "PlayerBio", selectedPlayerGamerTag = "Headsho7" });
             });
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LODM.highlights.Services
+namespace LODM.highlights.Services.Interfaces
 {
     public interface IEmailSender
     {
